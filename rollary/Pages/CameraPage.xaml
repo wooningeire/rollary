@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             x:Class="rollary.CameraPage"
+             
+             Title="Camera"
+             BackgroundColor="#aab4b6">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="0,6" />
+                <Setter Property="TextColor" Value="#fff" />
+            </Style>
+
+            <Style TargetType="ActivityIndicator">
+                <Setter Property="Color" Value="#fff" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- Serves as a preview display -->
+    <StackLayout Orientation="Horizontal">
+        <Grid HorizontalOptions="FillAndExpand">
+            <skia:SKCanvasView x:Name="PreviewFeedCanvas"
+                               PaintSurface="PreviewFeedCanvas_PaintSurface"
+                               
+                               Grid.Row="0"
+                               Grid.Column="0" />
+
+            <ActivityIndicator x:Name="PreviewLoading"
+                               IsRunning="True"
+                               
+                               Grid.Row="0"
+                               Grid.Column="0" />
+        </Grid>
+
+        <StackLayout>
+            <StackLayout VerticalOptions="FillAndExpand">
+                <StackLayout>
+                    <Button x:Name="StartButton"
+                            Clicked="StartButton_Clicked"
+                    
+                            Text="Start" />
+
+                    <Button x:Name="PauseButton"
+                            Clicked="PauseButton_Clicked"
+                        
+                            IsVisible="False"
+                            Text="Pause" />
+                </StackLayout>
+
+                <Button x:Name="SaveButton"
+                        Clicked="SaveButton_Clicked"
+                        
+                        IsVisible="False"
+                        IsEnabled="False"
+                        Text="Save" />
+
+                <Button x:Name="ResetButton"
+                        Clicked="ResetButton_Clicked"
+                    
+                        IsVisible="False"
+                        Text="Reset"/>
+            </StackLayout>
+            
+            <Button x:Name="SettingsButton"
+                    Clicked="SettingsButton_Clicked"
+                  
+                    Text="Settings" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

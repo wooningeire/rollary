@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:rollary"
+             x:Class="rollary.SettingsPage"
+             x:Name="CurrentSettingsPage"
+             
+             Title="Settings"
+             Padding="32, 20"
+             Background="#eef7ff">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="BoxView"
+                   Class="HorizontalRule">
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="Margin" Value="0,8" />
+
+                <Setter Property="Background" Value="#aaa" />
+            </Style>
+
+            <Style TargetType="BoxView"
+                   Class="HorizontalRuleHard">
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="Margin" Value="0,16" />
+                
+                <Setter Property="Background" Value="#777" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="RevertChangesButton"
+                        
+                        Clicked="RevertChangesButton_Clicked"
+                        Text="Revert changes"
+               
+                        IsEnabled="{Binding Source={x:Reference CurrentSettingsPage},
+                                            Path=Enabled}" />
+
+            <Button x:Name="RevertToDefaultsButton"
+                        
+                        Clicked="RevertToDefaultsButton_Clicked"
+                        Text="Revert to defaults"
+               
+                        IsEnabled="{Binding Source={x:Reference CurrentSettingsPage},
+                                            Path=Enabled}" />
+
+            <Label VerticalOptions="Center"
+                
+                   Text="Cannot be edited while in progress."
+                   IsVisible="{Binding Source={x:Reference CurrentSettingsPage},
+                                       Path=Disabled}" />
+        </StackLayout>
+
+        <BoxView StyleClass="HorizontalRuleHard" />
+
+        <StackLayout Orientation="Horizontal">
+            <StackLayout WidthRequest="320">
+                <Label Text="Scan width per frame (px)" />
+                <Entry x:Name="Entry_FrameScanWidth"
+                       Keyboard="Numeric"
+               
+                       IsEnabled="{Binding Source={x:Reference CurrentSettingsPage},
+                                           Path=Enabled}">
+                    <Entry.Text>
+                        <Binding Path="FrameScanWidth">
+                            <Binding.Converter>
+                                <local:EntryValueConverter />
+                            </Binding.Converter>
+                        </Binding>
+                    </Entry.Text>
+                </Entry>
+                <!-- public, to be accessible from binding converter -->
+                <Slider x:Name="Slider_FrameScanWidth"
+                        x:FieldModifier="public"
+                        Maximum="1"
+                        Minimum="0"
+               
+                        IsEnabled="{Binding Source={x:Reference CurrentSettingsPage},
+                                        Path=Enabled}" >
+                    <Slider.Value>
+                        <Binding Path="FrameScanWidth"
+                                 ConverterParameter="{x:Reference CurrentSettingsPage}">
+                            <Binding.Converter>
+                                <local:ExponentialSliderValueConverter />
+                            </Binding.Converter>
+                        </Binding>
+                    </Slider.Value>
+                </Slider>
+
+                <BoxView StyleClass="HorizontalRule" />
+
+                <!--<Label Text="Direction" />-->
+            </StackLayout>
+
+            <BoxView HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+    </StackLayout>
+    
+</ContentPage>
