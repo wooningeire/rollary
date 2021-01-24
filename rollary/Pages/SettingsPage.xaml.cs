@@ -65,8 +65,7 @@ namespace rollary
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // `value` is a boxed string
-            string entryValue = System.Convert.ToString(value);
+            string entryValue = (string)value;
 
             // Filter only the digits. Can't seem to limit this in XAML easily on UWP
             string entryValueNumeric = new string(entryValue.Where(character => char.IsDigit(character)).ToArray());
@@ -78,8 +77,6 @@ namespace rollary
             return float.NaN;
         }
     }
-
-    #region FrameScanWidth converters
 
     public class ExponentialSliderValueConverter : IValueConverter
     {
@@ -107,8 +104,6 @@ namespace rollary
             return (float)Math.Round(Math.Pow(args.ImageWidth, sliderValue));
         }
     }
-
-    #endregion
 
     public struct SettingsPageArgs
     {
