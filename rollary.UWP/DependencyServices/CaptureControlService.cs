@@ -21,9 +21,9 @@ namespace rollary.UWP
             await captureManager.Start();
         }
 
-        public async Task StopMediaCapture() => await captureManager.Stop();
+        public Task StopMediaCapture() => captureManager.Stop();
 
-        public async Task TerminateMediaCapture() => await captureManager.Terminate();
+        public Task TerminateMediaCapture() => captureManager.Terminate();
 
         public void SubscribeFrameReady(EventHandler<FrameReadyEventArgs> handler)
         {
